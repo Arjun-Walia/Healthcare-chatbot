@@ -28,7 +28,7 @@ function appendMessage(sender, message) {
 
   // Add avatar
   const avatar = document.createElement('img');
-  avatar.src = sender === 'user' ? 'https://via.placeholder.com/40' : 'https://via.placeholder.com/40';
+  avatar.src = sender === 'user' ? '../images/zoro.png' : '../images/bot.jpg';
   avatar.alt = sender === 'user' ? 'User Avatar' : 'Bot Avatar';
   avatar.classList.add('avatar');
   messageElement.appendChild(avatar);
