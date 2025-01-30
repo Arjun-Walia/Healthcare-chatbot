@@ -8,9 +8,20 @@
 </head>
 <body>
   <div class="chat-container">
-    <div id="chat-box"></div>
-    <input type="text" id="user-input" placeholder="Type your health concern..." />
-    <button id="send-btn">Send</button>
+    <div id="chat-box">
+      <!-- Default Welcome Message -->
+      <div class="message bot">
+        <img src="https://via.placeholder.com/40" alt="Bot Avatar" class="avatar">
+        <div class="message-content">
+          <p>Hello! I'm your healthcare assistant. How can I help you today?</p>
+          <span class="timestamp">Just now</span>
+        </div>
+      </div>
+    </div>
+    <div class="input-container">
+      <input type="text" id="user-input" placeholder="Type your health concern..." />
+      <button id="send-btn">Send</button>
+    </div>
   </div>
   <script src="script.js"></script>
 </body>
