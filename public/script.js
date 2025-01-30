@@ -18,10 +18,10 @@ document.getElementById('send-btn').addEventListener('click', async () => {
   });
 
   const data = await response.json();
-  appendMessage('bot', data.reply);
+  appendMessage('bot', data.reply, data.severity);
 });
 
-function appendMessage(sender, message) {
+function appendMessage(sender, message, severity) {
   const chatBox = document.getElementById('chat-box');
   const messageElement = document.createElement('div');
   messageElement.classList.add('message', sender);
@@ -36,7 +36,10 @@ function appendMessage(sender, message) {
   // Add message content
   const messageContent = document.createElement('div');
   messageContent.classList.add('message-content');
-  messageContent.innerHTML = `<p>${message}</p><span class="timestamp">${new Date().toLocaleTimeString()}</span>`;
+
+  let severityText = severity ? `<span class="severity">(${severity})</span> ` : '';
+
+  messageContent.innerHTML = `<p>${severityText}${message}</p><span class="timestamp">${new Date().toLocaleTimeString()}</span>`;
   messageElement.appendChild(messageContent);
 
   // Append to chat box
