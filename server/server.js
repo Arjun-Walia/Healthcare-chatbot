@@ -147,14 +147,43 @@ const responses = {
     reply: "Sit upright, pinch your nose, and lean forward slightly. Apply a cold compress to the bridge of your nose. If bleeding persists, seek medical help.",
      severity: "Mild",
   },
+    "high heart rate": {
+        reply: "Your heart rate is a bit high. Are you feeling stressed or have you been exercising?",
+        severity: "Moderate"
+    },
+    "low sleep": {
+        reply: "You haven't had much sleep. Try to get some rest.",
+        severity: "Mild"
+    },
+    "good activity": {
+        reply: "You've been active today! Keep up the good work.",
+        severity: "Mild"
+    },
+    "location advice": {
+        reply: "It's a good day for a walk in the park in your location.",
+        severity: "Mild"
+    },
   default: {
     reply: "I'm sorry, I can't provide specific advice for that. Please consult a healthcare professional for further assistance.",
   },
 };
 
 // Function to determine intent
-function determineIntent(message) {
+function determineIntent(message, userData) {
     const messageLower = message.toLowerCase();
+
+    if (userData.heartRate > 100) {
+        return 'high heart rate';
+    }
+    if (userData.sleepHours < 6) {
+        return 'low sleep';
+    }
+    if (userData.steps > 8000) {
+        return 'good activity';
+    }
+    if (userData.location.toLowerCase().includes('park')) {
+        return 'location advice';
+    }
 
     if (messageLower.includes('headache')) {
         return 'headache';
@@ -269,7 +298,8 @@ function determineIntent(message) {
 // Chat endpoint
 app.post("/chat", (req, res) => {
   const userMessage = req.body.message;
-  const intent = determineIntent(userMessage);
+  const userData = req.body.userData;
+  const intent = determineIntent(userMessage, userData);
   const responseData = responses[intent] || responses.default;
 
   res.json({

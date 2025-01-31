@@ -4,18 +4,42 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  min-height: 100vh;
   margin: 0;
+  transition: background-color 0.5s, color 0.5s;
+  /* overflow: hidden; Removed overflow: hidden from body */
+}
+
+.main-container {
+  display: flex;
+  width: 90%;
+  max-width: 1200px;
+  margin: 20px;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  max-height: 95vh; /* Added max-height to main-container */
+}
+
+.data-container {
+  flex: 1;
+  padding: 20px;
+  border-right: 1px solid #ddd;
+  display: flex;
+  flex-direction: column;
+  transition: background-color 0.5s, color 0.5s;
+  overflow-y: auto; /* Ensure overflow-y: auto is present */
+  max-height: 90vh; /* Added max-height to data-container */
 }
 
 .chat-container {
-  width: 400px;
-  background-color: #fff;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
+  flex: 1;
   display: flex;
   flex-direction: column;
+  background-color: #f9f9f9;
+  overflow: hidden;
+  max-height: 97vh;
+  transition: background-color 0.5s, color 0.5s;
 }
 
 #chat-box {
@@ -23,12 +47,23 @@ body {
   padding: 10px;
   overflow-y: auto;
   border-bottom: 1px solid #ddd;
+  transition: background-color 0.5s, color 0.5s;
 }
 
 .message {
   display: flex;
   align-items: flex-start;
   margin-bottom: 10px;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: slideUp 0.3s ease-out forwards;
+}
+
+@keyframes slideUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .message.user {
@@ -51,6 +86,7 @@ body {
   padding: 10px;
   border-radius: 10px;
   position: relative;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .message.user .message-content {
@@ -74,6 +110,7 @@ body {
   display: flex;
   padding: 10px;
   border-top: 1px solid #ddd;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 #user-input {
@@ -91,8 +128,269 @@ body {
   color: #fff;
   border-radius: 5px;
   cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 #send-btn:hover {
   background-color: #0056b3;
+}
+
+.data-display-container {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.analysis-container {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.chart-container {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+#emergency-btn {
+  padding: 10px 20px;
+  border: none;
+  background-color: #dc3545;
+  color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 10px;
+  transition: background-color 0.3s ease;
+}
+
+#emergency-btn:hover {
+  background-color: #c82333;
+}
+
+/* Light Mode */
+body.light-mode {
+  background-color: #ffffff;
+  color: #333;
+}
+
+body.light-mode .data-container {
+  background-color: #ffffff;
+  color: #333;
+}
+
+body.light-mode .chat-container {
+  background-color: #f9f9f9;
+  color: #333;
+}
+
+body.light-mode #chat-box {
+  background-color: #f9f9f9;
+  color: #333;
+}
+
+body.light-mode .message-content {
+  background-color: #f1f1f1;
+  color: #333;
+}
+
+body.light-mode .input-container {
+  background-color: #f9f9f9;
+  color: #333;
+}
+
+body.light-mode .data-display-container {
+  background-color: #ffffff;
+  color: #333;
+}
+
+body.light-mode .analysis-container {
+  background-color: #ffffff;
+  color: #333;
+}
+
+body.light-mode .chart-container {
+  background-color: #ffffff;
+  color: #333;
+}
+
+/* Dark Mode */
+body.dark-mode {
+  background-color: #333;
+  color: #ffffff;
+}
+
+body.dark-mode .data-container {
+  background-color: #222;
+  color: #fff;
+}
+
+body.dark-mode .chat-container {
+  background-color: #444;
+  color: #fff;
+}
+
+body.dark-mode #chat-box {
+  background-color: #444;
+  color: #fff;
+}
+
+body.dark-mode .message-content {
+  background-color: #555;
+  color: #fff;
+}
+
+body.dark-mode .input-container {
+  background-color: #444;
+  color: #fff;
+}
+
+body.dark-mode .data-display-container {
+  background-color: #222;
+  color: #fff;
+}
+
+body.dark-mode .analysis-container {
+  background-color: #222;
+  color: #fff;
+}
+
+body.dark-mode .chart-container {
+  background-color: #222;
+  color: #fff;
+}
+
+/* Theme Toggle Button */
+#theme-toggle-button {
+  font-size: 14px;
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  display: inline-block;
+  width: 5em;
+  cursor: pointer;
+}
+
+#theme-toggle-button #toggle:checked + svg {
+  filter: brightness(1.2);
+}
+
+/* Hide default HTML checkbox */
+#toggle {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+#container,
+#patches,
+#stars,
+#button,
+#sun,
+#moon,
+#cloud {
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 0.25s;
+}
+
+/* night sky background */
+#toggle:checked + svg #container {
+  fill: #2b4360;
+}
+
+/* move button to right when checked */
+#toggle:checked + svg #button {
+  transform: translate(28px, 2.333px);
+}
+
+/* show/hide sun and moon based on checkbox state */
+#sun {
+  opacity: 1;
+}
+
+#toggle:checked + svg #sun {
+  opacity: 0;
+}
+
+#moon {
+  opacity: 0;
+}
+
+#toggle:checked + svg #moon {
+  opacity: 1;
+}
+
+/* show or hide background items on checkbox state */
+#cloud {
+  opacity: 1;
+}
+
+#toggle:checked + svg #cloud {
+  opacity: 0;
+}
+
+#stars {
+  opacity: 0;
+}
+
+#toggle:checked + svg #stars {
+  opacity: 1;
+}
+
+.progress-bar-container {
+  width: 100%;
+  padding: 10px 0;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 10px;
+  background-color: #e0e0e0;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.progress {
+  height: 100%;
+  background-color: #4caf50;
+  width: 0;
+  transition: width 0.3s ease;
+}
+
+.mood-tracker {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.mood-options {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 10px;
+}
+
+.mood-emoji {
+  font-size: 2em;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.mood-emoji:hover {
+  transform: scale(1.2);
+}
+
+.quote-container {
+  padding: 10px;
+  font-style: italic;
+  text-align: center;
+  transition: color 0.3s ease;
+}
+.chart-container {
+  transform: translateY(0);
+  transition: transform 0.3s ease;
+}
+
+.chart-container:hover {
+  transform: translateY(-10px);
 }
